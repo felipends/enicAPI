@@ -1,0 +1,37 @@
+0 Clauirton
+1 Laura Aires
+2 Lincoln
+3 Lenildo Luan
+4 Rodrigo
+5 Camila Mara
+6 Bruno
+7 Anand Subramanian
+8 José Felipe
+9 Carlos
+10 Yure Talis
+11 Thais Gaudêncio
+12 Jõao
+13 Alisson
+14 Mardson
+15 Rafael
+16 Teobaldo
+17 Mateus Antonio
+18 Bruno Bruck
+19 Rebeca Raab
+20 Derzu
+
+0 Drones
+1 Computação
+2 Otimização
+3 Inteligência Artificial
+4 Sistemas Embarcados
+5 Eletrônica
+6 Roteamento de veículos
+7 Jogos
+8 Lógica
+9 Lógica booleana
+10 Programação de eventos
+11 Redes Neurais
+12 Jogos educacionais
+13 Aprendizagem de máquina
+14 Microeletrônica

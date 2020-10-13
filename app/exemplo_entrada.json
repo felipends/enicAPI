@@ -1,0 +1,134 @@
+{
+    "dataEnic": "22/08/2020",
+    "numTurnos": 1,
+    "horaInicio": ["8:00"],
+    "numSalas": 5,
+    "numTrabalhosPorSala": 6,
+    "duracaoTabalho": 20,
+    "trabalhos" : [
+        {
+            "aluno": "José Felipe",
+            "orientador": "Anand Subramanian",
+            "grandeArea": "Computação",
+            "area": "Otimização",
+            "subArea": "Programação de eventos",
+			"linkVideo": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+			"resumo": "Lorem Ipsum amet blah",
+			"titulo": "Conference Scheduler"
+        },
+        {
+            "aluno": "Lenildo Luan",
+            "orientador": "Anand Subramanian",
+            "grandeArea": "Computação",
+            "area": "Otimização",
+            "subArea": "Roteamento de veículos",
+			"linkVideo": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+			"resumo": "Lorem Ipsum amet blah",
+			"titulo": "Conference Scheduler"
+        },
+        {
+            "aluno": "Yure Talis",
+            "orientador": "Mardson",
+            "grandeArea": "Computação",
+            "area": "Eletrônica",
+            "subArea": "Microeletrônica",
+			"linkVideo": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+			"resumo": "Lorem Ipsum amet blah",
+			"titulo": "Conference Scheduler"
+        },
+        {
+            "aluno": "Rebeca Raab",
+            "orientador": "Clauirton",
+            "grandeArea": "Computação",
+            "area": "Jogos",
+            "subArea": "Jogos educacionais",
+			"linkVideo": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+			"resumo": "Lorem Ipsum amet blah",
+			"titulo": "Conference Scheduler"
+        },
+        {
+            "aluno": "Laura Aires",
+            "orientador": "Clauirton",
+            "grandeArea": "Computação",
+            "area": "Jogos",
+            "subArea": "Jogos educacionais",
+			"linkVideo": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+			"resumo": "Lorem Ipsum amet blah",
+			"titulo": "Conference Scheduler"
+        },
+        {
+            "aluno": "Jõao",
+            "orientador": "Lincoln",
+            "grandeArea": "Computação",
+            "area": "Inteligência Artificial",
+            "subArea": "Aprendizagem de máquina",
+			"linkVideo": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+			"resumo": "Lorem Ipsum amet blah",
+			"titulo": "Conference Scheduler"
+        },
+        {
+            "aluno": "Mateus Antonio",
+            "orientador": "Alisson",
+            "grandeArea": "Computação",
+            "area": "Sistemas Embarcados",
+            "subArea": "Drones",
+			"linkVideo": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+			"resumo": "Lorem Ipsum amet blah",
+			"titulo": "Conference Scheduler"
+        },
+        {
+            "aluno": "Rodrigo",
+            "orientador": "Bruno Bruck",
+            "grandeArea": "Computação",
+            "area": "Lógica",
+            "subArea": "Lógica booleana",
+			"linkVideo": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+			"resumo": "Lorem Ipsum amet blah",
+			"titulo": "Conference Scheduler"
+        },
+        {
+            "aluno": "Bruno",
+            "orientador": "Thais Gaudêncio",
+            "grandeArea": "Computação",
+            "area": "Inteligência Artificial",
+            "subArea": "Aprendizagem de máquina",
+			"linkVideo": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+			"resumo": "Lorem Ipsum amet blah",
+			"titulo": "Conference Scheduler"
+        },
+        {
+            "aluno": "Carlos",
+            "orientador": "Derzu",
+            "grandeArea": "Computação",
+            "area": "Inteligência Artificial",
+            "subArea": "Redes Neurais",
+			"linkVideo": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+			"resumo": "Lorem Ipsum amet blah",
+			"titulo": "Conference Scheduler"
+        },
+        {
+            "aluno": "Rafael",
+            "orientador": "Teobaldo",
+            "grandeArea": "Computação",
+            "area": "Otimização",
+            "subArea": "Roteamento de veículos",
+			"linkVideo": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+			"resumo": "Lorem Ipsum amet blah",
+			"titulo": "Conference Scheduler"
+        }
+    ],
+    "professoresExtra" : [
+        {
+            "nome": "Bruno Bruck",
+            "grandeArea": "Computação",
+            "area": "Inteligência Artificial",
+            "subArea": "Aprendizagem de máquina"
+        },
+        {
+            "nome": "Camila Mara",
+            "grandeArea": "Computação",
+            "area": "Eletrônica",
+            "subArea": "Microeletrônica"
+        }
+    ]
+}

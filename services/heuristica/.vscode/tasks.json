@@ -1,0 +1,31 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build unit tests",
+            "type": "shell",
+            "command": "make",
+            "args": [
+                "-f",
+                "tests.makefile"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "build aplication",
+            "type": "shell",
+            "command": "make",
+            "args": [
+                "-f",
+                "makefile"
+            ],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            }
+        }
+    ]
+}

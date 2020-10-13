@@ -1,0 +1,31 @@
+{
+    "configurations": [
+        {
+            "name": "WSL",
+            "intelliSenseMode": "gcc-x64",
+            "compilerPath": "/usr/bin/gcc",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/usr/**",
+                "/opt/ibm/ILOG/CPLEX_Studio127/cplex/include/**",
+                "/opt/ibm/ILOG/CPLEX_Studio127/concert/include/**",
+                "/home/rubens/Documentos/Dev/or-tools/or-tools_ubuntu/include/**"                
+            ],
+            "defines": [],
+            "browse": {
+                "path": [
+                    "${workspaceFolder}",
+                    "/usr",
+                    "/opt/ibm/ILOG/CPLEX_Studio127/cplex/include",
+                    "/opt/ibm/ILOG/CPLEX_Studio127/concert/include",
+                    "/home/rubens/Documentos/Dev/or-tools/or-tools_ubuntu/include"
+                ],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": ""
+            },
+            "cStandard": "c11",
+            "cppStandard": "c++17"
+        }
+    ],
+    "version": 4
+}
