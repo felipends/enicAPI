@@ -30,7 +30,7 @@ CCFLAGS = $(CCOPT) -I$(ORTOOLSINCDIR)
 #############################
 
 #### flags do linker
-CCLNFLAGS = -lm -lpthread -L$(ORTOOLSLIBDIR) -lz -lrt -Llib -Llib64 -lprotobuf -lglog -lgflags -lCbcSolver -lCbc -lOsiCbc -lCgl -lClpSolver -lClp -lOsiClp -lOsi -lCoinUtils -lortools
+CCLNFLAGS = -lm -lpthread -L$(ORTOOLSLIBDIR) -lz -lrt -Llib -Llib64 -lprotobuf -lCbcSolver -lCbc -lOsiCbc -lCgl -lClpSolver -lClp -lOsiClp -lOsi -lCoinUtils -lortools
 #############################
 
 #### diretorios com os source files e com os objs files

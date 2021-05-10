@@ -2,55 +2,13 @@ import os
 import json
 import subprocess
 import time
-from typing import Optional, List
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
+from app.models.paperModel import Paper
+from app.models.enicDayModel import EnicDay
+from app.models.extraExaminerModel import ExtraExaminer
 
 app = FastAPI()
-
-class Trabalho(BaseModel):
-    """
-    Informações dos trabalhos a serem apresentados.
-    """
-    aluno: str
-    orientador: str
-    grandeArea: Optional[str]
-    area: Optional[str]
-    subArea: Optional[str]
-    linkVideo: Optional[str]
-    resumo: Optional[str]
-    titulo: Optional[str]
-
-class ExtraProfessor(BaseModel):
-    """
-    Informaçẽos dos professores extra (que não são orientadores).
-    """
-    nome: str
-    grandeArea: Optional[str]
-    area: Optional[str]
-    subArea: Optional[str]
-
-class EnicDay(BaseModel):
-    """
-    Informações de um dia do Enic para compor uma
-    instância de dados de entrada para a heurística.
-    Local da instancia,
-    Número Turnos,
-    Número de salas,
-    Trabalhos por sala,
-    Duração da apresentação,
-    Horário de início de cada turno
-    Professores extra daquele campus
-    """
-    localEnic: str
-    dataEnic: str
-    numTurnos: int
-    horaInicio: List[str]
-    numSalas: int
-    numTrabalhosPorSala: int
-    duracaoTabalho: int
-    trabalhos: List[Trabalho]
-    professoresExtra: Optional[List[ExtraProfessor]]
 
 def generateDictionary(dayInfo):
     """
@@ -59,36 +17,36 @@ def generateDictionary(dayInfo):
     authorsList = []
     topicsList = []
 
-    for ep in dayInfo.professoresExtra:
-        authorsList.append(ep.nome)
+    for examiner in dayInfo.professoresExtra:
+        authorsList.append(examiner.nome)
 
-    for trab in dayInfo.trabalhos:
-        authorsList.append(trab.aluno)
-        authorsList.append(trab.orientador)
-        topicsList.append(trab.grandeArea)
-        topicsList.append(trab.area)
-        topicsList.append(trab.subArea)
+    for paper in dayInfo.trabalhos:
+        authorsList.append(paper.aluno)
+        authorsList.append(paper.orientador)
+        topicsList.append(paper.grandeArea)
+        topicsList.append(paper.area)
+        topicsList.append(paper.subArea)
 
     authorsList = list(set(authorsList))
     topicsList = list(set(topicsList))
 
     return authorsList, topicsList
 
-def dictionaryToFile(dictFilename, autores, topicos):
+def dictionaryToFile(dictFilename, authors, topics):
     """
     Escreve os dados do dicionário em um arquivo a ser consumido pelo resolvedor.
     """
     dictFile = open(dictFilename, "w+")
 
     idx = 0
-    for autor in autores:
-        dictFile.write("{} {}\n".format(idx, autor))
+    for author in authors:
+        dictFile.write("{} {}\n".format(idx, author))
         idx += 1
     dictFile.write("\n")
 
     idx = 0
-    for topico in topicos:
-        dictFile.write("{} {}\n".format(idx, topico))
+    for topic in topics:
+        dictFile.write("{} {}\n".format(idx, topic))
         idx += 1
 
     dictFile.close()
@@ -142,7 +100,7 @@ def generateInstance(dayInfo, dayDict):
 
     for hora in dayInfo.horaInicio:
         for i in range(dayInfo.numSalas):
-            instanceStr += "{} {} {} {} {} {} {}\n".format(dayInfo.numTrabalhosPorSala, dayInfo.duracaoTabalho, dayInfo.dataEnic.split("/")[0], dayInfo.dataEnic.split("/")[1], dayInfo.dataEnic.split("/")[2], hora.split(":")[0], hora.split(":")[1])
+            instanceStr += "{} {} {} {} {} {} {}\n".format(dayInfo.numTrabalhosPorSala, dayInfo.duracaoTrabalho, dayInfo.dataEnic.split("/")[0], dayInfo.dataEnic.split("/")[1], dayInfo.dataEnic.split("/")[2], hora.split(":")[0], hora.split(":")[1])
 
     instanceStr += "0\n0\n"
 
@@ -182,10 +140,10 @@ def store_day(dayInfo: EnicDay):
     instanceFilename = "./instance.txt"
     resultFilename = "./result.json"
 
-    autores, topicos = generateDictionary(dayInfo)
-    dictionaryToFile(dictFilename, autores, topicos)
+    authors, topics = generateDictionary(dayInfo)
+    dictionaryToFile(dictFilename, authors, topics)
 
-    instanceStr = generateInstance(dayInfo, (autores, topicos))
+    instanceStr = generateInstance(dayInfo, (authors, topics))
     instanceFile = open(instanceFilename, "w+")
     resultFile = open(resultFilename, "w+")
     resultFile.close()
@@ -202,19 +160,19 @@ def store_day(dayInfo: EnicDay):
     with open(resultFilename, "r") as outfile:
         data = json.load(outfile)
     data['local'] = dayInfo.localEnic
-    trabs = dayInfo.trabalhos
+    papers = dayInfo.trabalhos
 
     for session in data['sessions']:
         for paper in session['papers']:
-            paper['grande_area'] = next((x for x in trabs if x.aluno == paper['aluno']), None).grandeArea
-            paper['area'] = next((x for x in trabs if x.aluno == paper['aluno']), None).area
-            paper['sub_area'] = next((x for x in trabs if x.aluno == paper['aluno']), None).subArea
-            if next((x for x in trabs if x.aluno == paper['aluno']), None).linkVideo:
-                paper['link_video'] = next((x for x in trabs if x.aluno == paper['aluno']), None).linkVideo
-            if next((x for x in trabs if x.aluno == paper['aluno']), None).resumo:
-                paper['resumo'] = next((x for x in trabs if x.aluno == paper['aluno']), None).resumo
-            if next((x for x in trabs if x.aluno == paper['aluno']), None).titulo:
-                paper['titulo'] = next((x for x in trabs if x.aluno == paper['aluno']), None).titulo
+            paper['grande_area'] = next((x for x in papers if x.aluno == paper['aluno']), None).grandeArea
+            paper['area'] = next((x for x in papers if x.aluno == paper['aluno']), None).area
+            paper['sub_area'] = next((x for x in papers if x.aluno == paper['aluno']), None).subArea
+            if next((x for x in papers if x.aluno == paper['aluno']), None).linkVideo:
+                paper['link_video'] = next((x for x in papers if x.aluno == paper['aluno']), None).linkVideo
+            if next((x for x in papers if x.aluno == paper['aluno']), None).resumo:
+                paper['resumo'] = next((x for x in papers if x.aluno == paper['aluno']), None).resumo
+            if next((x for x in papers if x.aluno == paper['aluno']), None).titulo:
+                paper['titulo'] = next((x for x in papers if x.aluno == paper['aluno']), None).titulo
 
     os.remove(resultFilename)
     os.remove(dictFilename)

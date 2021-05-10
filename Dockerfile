@@ -62,11 +62,11 @@ RUN apt-get update -qq \
 # install fastapi and uvicorn
 RUN pip3 install fastapi uvicorn
 
-EXPOSE 3000
+EXPOSE 3030
 
 COPY ./app /root/app/app
 
 WORKDIR /root/app
 
 # start API on docker run
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "3000"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "3030"]

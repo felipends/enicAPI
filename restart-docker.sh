@@ -1,6 +1,6 @@
 #!/bin/bash
-imageName=enicimage
-containerName=dockerenic
+imageName=enic
+containerName=enicdk
 
 docker build -t $imageName -f Dockerfile  .
 
@@ -11,4 +11,4 @@ echo Delete old container...
 docker rm -f $containerName
 
 echo Run new container...
-docker run -d -p 3000:3000 --name $containerName $imageName
+docker run -d -p 3030:3030 --name $containerName $imageName
