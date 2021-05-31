@@ -131,7 +131,7 @@ def read_root():
     """Test path"""
     return {"Test": "OK"}
 
-@app.post("/day/")
+@app.post("/schedule/")
 def store_day(dayInfo: EnicDay):
     """
     Caminho para realizar programação de um dia do evento.
@@ -150,10 +150,9 @@ def store_day(dayInfo: EnicDay):
     instanceFile.write(instanceStr)
     instanceFile.close()
 
-    print(instanceStr)
-
-    process = subprocess.call(["./services/heuristica/heuristic","./instance.txt","./result.json","./dict.txt"])
-    if process:
+    # TODO: make this process run asynchronous and then notify with the result
+    process_returncode = subprocess.call(["./services/heuristica/heuristic","./instance.txt","./result.json","./dict.txt"])
+    if process_returncode:
         raise HTTPException(status_code=400, detail="Bad Request: Error trying to process the given instance.")
 
     data = {}
