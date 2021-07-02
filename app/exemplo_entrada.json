@@ -4,7 +4,8 @@
     "horaInicio": ["8:00"],
     "numSalas": 5,
     "numTrabalhosPorSala": 6,
-    "duracaoTabalho": 20,
+    "duracaoTrabalho": 20,
+		"localEnic": "online",
     "trabalhos" : [
         {
             "aluno": "José Felipe",

@@ -1,12 +1,8 @@
 import os
 import json
 import subprocess
-import time
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
-from app.models.paperModel import Paper
 from app.models.enicDayModel import EnicDay
-from app.models.extraExaminerModel import ExtraExaminer
 
 app = FastAPI()
 
@@ -175,6 +171,6 @@ def store_day(dayInfo: EnicDay):
 
     os.remove(resultFilename)
     os.remove(dictFilename)
-    # os.remove(instanceFilename)
+    os.remove(instanceFilename)
 
     return data
