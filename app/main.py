@@ -160,8 +160,8 @@ def runTaskAndNotify(userEmail):
     msg.attach(p)
 
     with smtplib.SMTP_SSL("smtp.gmail.com", port, context = context) as server:
-        server.login("dasilvajfelipe@gmail.com", password)
-        server.sendmail("dasilvajfelipe@gmail.com", "felipendsdev@gmail.com", msg.as_string())
+        server.login(EMAIL_SENDER, password)
+        server.sendmail(EMAIL_SENDER, userEmail, msg.as_string())
         server.quit()
 
     os.remove("./instance.txt")
