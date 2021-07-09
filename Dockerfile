@@ -60,13 +60,13 @@ RUN apt-get update -qq \
 && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # install fastapi and uvicorn
-RUN pip3 install fastapi uvicorn
+RUN pip3 install fastapi uvicorn python-dotenv
 
-EXPOSE 3030
+EXPOSE 5050
 
 COPY ./app /root/app/app
 
 WORKDIR /root/app
 
 # start API on docker run
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "3030"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "5050"]

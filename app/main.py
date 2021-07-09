@@ -1,8 +1,16 @@
 import os
-import json
 import subprocess
-from fastapi import FastAPI, HTTPException
+import threading
+from fastapi import FastAPI
 from app.models.enicDayModel import EnicDay
+
+import smtplib, ssl, threading
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.base import MIMEBase
+from email import encoders
+
+from app.settings import *
 
 app = FastAPI()
 
@@ -122,6 +130,45 @@ def generateInstance(dayInfo, dayDict):
 
     return instanceStr
 
+def runTaskAndNotify(userEmail):
+    subprocess.call(["./services/heuristica/heuristic","./instance.txt","./result.json","./dict.txt"])
+
+    port = 465
+    password = EMAIL_PASS
+
+    context = ssl.create_default_context()
+
+    msg = MIMEMultipart()
+    msg['From'] = EMAIL_SENDER
+    msg['To'] = userEmail
+    msg['Subject'] = 'ENIC Scheduler: sua solução está pronta'
+    mail_body = 'Verifique a solução para a programação do ENIC que segue no arquivo anexo.'
+
+    msg.attach(MIMEText(mail_body, 'plain'))
+
+    filename = 'result.json'
+    attachment = open('./'+filename, 'rb')
+
+    p = MIMEBase('application', 'octet-stream')
+
+    p.set_payload(attachment.read())
+
+    encoders.encode_base64(p)
+
+    p.add_header('Content-Disposition', 'attachment; filename=%s' % filename)
+
+    msg.attach(p)
+
+    with smtplib.SMTP_SSL("smtp.gmail.com", port, context = context) as server:
+        server.login("dasilvajfelipe@gmail.com", password)
+        server.sendmail("dasilvajfelipe@gmail.com", "felipendsdev@gmail.com", msg.as_string())
+        server.quit()
+
+    os.remove("./instance.txt")
+    os.remove("./result.json")
+    os.remove("./dict.txt")
+
+
 @app.get("/")
 def read_root():
     """Test path"""
@@ -146,31 +193,8 @@ def store_day(dayInfo: EnicDay):
     instanceFile.write(instanceStr)
     instanceFile.close()
 
-    # TODO: make this process run asynchronous and then notify with the result
-    process_returncode = subprocess.call(["./services/heuristica/heuristic","./instance.txt","./result.json","./dict.txt"])
-    if process_returncode:
-        raise HTTPException(status_code=400, detail="Bad Request: Error trying to process the given instance.")
-
-    data = {}
-    with open(resultFilename, "r") as outfile:
-        data = json.load(outfile)
-    data['local'] = dayInfo.localEnic
-    papers = dayInfo.trabalhos
-
-    for session in data['sessions']:
-        for paper in session['papers']:
-            paper['grande_area'] = next((x for x in papers if x.aluno == paper['aluno']), None).grandeArea
-            paper['area'] = next((x for x in papers if x.aluno == paper['aluno']), None).area
-            paper['sub_area'] = next((x for x in papers if x.aluno == paper['aluno']), None).subArea
-            if next((x for x in papers if x.aluno == paper['aluno']), None).linkVideo:
-                paper['link_video'] = next((x for x in papers if x.aluno == paper['aluno']), None).linkVideo
-            if next((x for x in papers if x.aluno == paper['aluno']), None).resumo:
-                paper['resumo'] = next((x for x in papers if x.aluno == paper['aluno']), None).resumo
-            if next((x for x in papers if x.aluno == paper['aluno']), None).titulo:
-                paper['titulo'] = next((x for x in papers if x.aluno == paper['aluno']), None).titulo
-
-    os.remove(resultFilename)
-    os.remove(dictFilename)
-    os.remove(instanceFilename)
+    threading.Thread(target=runTaskAndNotify, daemon=True, args=[dayInfo.userEmail]).start()
+   
+    data = {"message": "job created!"}
 
     return data

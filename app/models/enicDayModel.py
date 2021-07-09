@@ -24,5 +24,6 @@ class EnicDay(BaseModel):
     numSalas: int
     numTrabalhosPorSala: int
     duracaoTrabalho: int # Tempo de apresentação de cada trabalho
+    userEmail: str
     trabalhos: List[Paper]
     professoresExtra: Optional[List[ExtraExaminer]]

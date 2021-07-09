@@ -5,7 +5,8 @@
     "numSalas": 5,
     "numTrabalhosPorSala": 6,
     "duracaoTrabalho": 20,
-		"localEnic": "online",
+	"localEnic": "online",
+    "userEmail": "felipendsdev@gmail.com",
     "trabalhos" : [
         {
             "aluno": "José Felipe",
